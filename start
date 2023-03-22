@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+cd `dirname $0`
+
+source ./.venv/bin/activate
+
+if [ ! -e "./git.date" ]; then
+	echo 0 > ./git.date
+fi
+
+now=$(date +%Y%m%d)
+
+if [ ! "$(cat ./git.date)" == "$now" ]; then
+	timeout 1m git pull
+	pip install -r requirements.txt
+	echo "$now" > ./git.date
+fi
+
+python3 run.py
