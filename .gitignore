@@ -9,10 +9,6 @@ db.json
 database.json
 *.db
 *.sqlite
-img/
-imgs/
-image/
-images/
 
 # 非公开的组件
 hoshino/modules/pcrclanbattle/clanbattlev3
