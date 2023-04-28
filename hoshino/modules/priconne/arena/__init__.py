@@ -163,7 +163,7 @@ async def _arena_query(bot, ev: CQEvent, region: int):
     ]
     if region == 1:
         msg.append('※使用"b怎么拆"或"台怎么拆"可按服过滤')
-    msg.append('Support by pcrdfans_com')
+    # msg.append('Support by pcrdfans_com')
 
     sv.logger.debug('Arena sending result...')
     await bot.send(ev, '\n'.join(msg))

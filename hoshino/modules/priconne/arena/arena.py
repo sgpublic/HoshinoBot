@@ -118,21 +118,22 @@ async def do_query(id_list, user_id, region=1):
     id_list = [x * 100 + 1 for x in id_list]
     header = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
-        "authorization": __get_auth_key(),
+        # "authorization": __get_auth_key(),
     }
     payload = {
-        "_sign": "a",
-        "def": id_list,
-        "nonce": "a",
-        "page": 1,
-        "sort": 1,
-        "ts": int(time.time()),
+        # "_sign": "a",
+        "ids": id_list,
+        # "nonce": "a",
+        # "page": 1,
+        # "sort": 1,
+        # "ts": int(time.time()),
         "region": region,
     }
     logger.debug(f"Arena query {payload=}")
     try:
         resp = await aiorequests.post(
-            "https://api.pcrdfans.com/x/v1/search",
+            # "https://api.pcrdfans.com/x/v1/search",
+            "https://wthee.xyz/pcr/api/v1/pvp/search",
             headers=header,
             json=payload,
             timeout=10,
@@ -143,38 +144,47 @@ async def do_query(id_list, user_id, region=1):
         logger.exception(e)
         return None
 
-    if res["code"]:
+    # if res["code"]:
+    if res["status"] != 0:
         logger.error(f"Arena query failed.\nResponse={res}\nPayload={payload}")
         raise aiorequests.HTTPError(response=res)
 
-    result = res.get("data", {}).get("result")
+    # result = res.get("data", {}).get("result")
+    result = res.get("data")
     if result is None:
         return None
     ret = []
     for entry in result:
         eid = entry["id"]
-        likes = get_likes(eid)
-        dislikes = get_dislikes(eid)
+        # likes = get_likes(eid)
+        # dislikes = get_dislikes(eid)
         ret.append(
             {
                 "qkey": gen_quick_key(eid, user_id),
                 "atk": [
-                    chara.fromid(c["id"] // 100, c["star"], c["equip"])
-                    for c in entry["atk"]
+                    # chara.fromid(c["id"] // 100, c["star"], c["equip"])
+                    # for c in entry["atk"]
+                    chara.fromid(int(c) // 100)
+                    for c in str(entry["atk"]).removesuffix("-").split("-")
                 ],
                 "def": [
-                    chara.fromid(c["id"] // 100, c["star"], c["equip"])
-                    for c in entry["def"]
+                    # chara.fromid(c["id"] // 100, c["star"], c["equip"])
+                    # for c in entry["def"]
+                    chara.fromid(int(c) // 100)
+                    for c in str(entry["def"]).removesuffix("-").split("-")
                 ],
                 "up": entry["up"],
                 "down": entry["down"],
-                "my_up": len(likes),
-                "my_down": len(dislikes),
-                "user_like": 1
-                if user_id in likes
-                else -1
-                if user_id in dislikes
-                else 0,
+                # "my_up": len(likes),
+                "my_up": 0,
+                # "my_down": len(dislikes),
+                "my_down": 0,
+                "user_like": 0
+                # "user_like": 1
+                # if user_id in likes
+                # else -1
+                # if user_id in dislikes
+                # else 0,
             }
         )
 

@@ -1,12 +1,21 @@
 import itertools
+import os.path
 from datetime import datetime
-from hoshino import util, R
+
+from io import BytesIO
+from PIL import Image
+
+from hoshino import util, R, log, aiorequests
+from hoshino.config import DEBUG, SUPERUSERS
 from hoshino.typing import CQEvent
 from . import sv
 
-rank_cn = '18-5'
-pcn = R.img(f'priconne/quick/r{rank_cn}-cn-0.png').cqcode
+# rank_cn = '18-5'
+# pcn = R.img(f'priconne/quick/r{rank_cn}-cn-0.png').cqcode
+rank_file = R.img(f'priconne/quick/latest.png')
+pcn = rank_file.cqcode
 
+logger = log.new_logger('rank', DEBUG)
 
 def get_support_rank(t: datetime, server):
     if server == 'jp':
@@ -20,27 +29,63 @@ def get_support_rank(t: datetime, server):
     return rank
 
 
-@sv.on_rex(r'^(\*?([日台国陆b])服?([前中后]*)卫?)?rank(表|推荐|指南)?$')
-async def rank_sheet(bot, ev):
+# @sv.on_rex(r'^(\*?([日台国陆b])服?([前中后]*)卫?)?rank(表|推荐|指南)?$')
+@sv.on_rex(r'(更新)?rank(表|推荐|指南)?$')
+async def rank_sheet(bot, ev: CQEvent):
     match = ev['match']
-    is_jp = match.group(2) == '日'
-    is_tw = match.group(2) == '台'
-    is_cn = match.group(2) and match.group(2) in '国陆b'
-    if not is_jp and not is_tw and not is_cn:
-        await bot.send(ev, '\n请问您要查询哪个服务器的rank表？\n*日rank表\n*台rank表\n*陆rank表', at_sender=True)
+    is_update = match.group(1) == '更新'
+    if is_update:
+        if ev.user_id not in SUPERUSERS:
+            await bot.send(ev, '仅超级管理员可上传 rank 表，rank 表功更新失败', at_sender=True)
+            return
+        image_url = None
+        try:
+            for item in ev.message:
+                if item.type != 'image':
+                    continue
+                if image_url is not None:
+                    await bot.send(ev, '请勿上传多个图片，rank 表更新失败', at_sender=True)
+                    return
+                image_url = item.data["url"]
+        except Exception as err:
+            logger.error(ev, exc_info=err)
+            await bot.send(ev, 'rank 表更新指令解析失败', at_sender=True)
+            return
+        if image_url is None:
+            await bot.send(ev, '请一并发送新的 rank 表，rank 表更新失败', at_sender=True)
+            return
+        try:
+            image = Image.open(BytesIO(await (await aiorequests.get(image_url, stream=True)).content))
+            image.save(rank_file.path)
+            await bot.send(ev, 'rank 表保存成功', at_sender=True)
+        except Exception as err:
+            logger.error("rank 表保存失败", exc_info=err)
+            await bot.send(ev, 'rank 表保存失败', at_sender=True)
         return
-    msg = [
-        '\n※rank表仅供参考，升r有风险，强化需谨慎\n※请以会长要求为准',
-    ]
-    if is_jp:
-        await bot.send(ev, f"\n休闲：输出拉满 辅助R{get_support_rank(datetime.now(), 'jp')}-0\n一档：问你家会长", at_sender=True)
-    elif is_tw:
-        await bot.send(ev, f"\n休闲：输出拉满 辅助R{get_support_rank(datetime.now(), 'tw')}-0\n一档：问你家会长", at_sender=True)
-    elif is_cn:
-        await bot.send(ev, f"https://www.bilibili.com/read/cv19044402\n{pcn}", at_sender=True)
-        # msg.append(f'※不定期搬运自nga\n※制作by樱花铁道之夜\nR{rank_cn} rank表：\n{pcn}')
-        # await bot.send(ev, '\n'.join(msg), at_sender=True)
-        # await util.silence(ev, 60)
+
+    if not os.path.exists(rank_file.path):
+        await bot.send(ev, 'rank 表图片资源不存在，请先上传 rank 表', at_sender=True)
+        return
+    await bot.send(ev, pcn, at_sender=True)
+    # match = ev['match']
+    # is_jp = match.group(2) == '日'
+    # is_tw = match.group(2) == '台'
+    # is_cn = match.group(2) and match.group(2) in '国陆b'
+    # if not is_jp and not is_tw and not is_cn:
+    #     await bot.send(ev, '\n请问您要查询哪个服务器的rank表？\n*日rank表\n*台rank表\n*陆rank表', at_sender=True)
+    #     return
+    # msg = [
+    #     '\n※rank表仅供参考，升r有风险，强化需谨慎\n※请以会长要求为准',
+    # ]
+    # if is_jp:
+    #     await bot.send(ev, f"\n休闲：输出拉满 辅助R{get_support_rank(datetime.now(), 'jp')}-0\n一档：问你家会长", at_sender=True)
+    # elif is_tw:
+    #     await bot.send(ev, f"\n休闲：输出拉满 辅助R{get_support_rank(datetime.now(), 'tw')}-0\n一档：问你家会长", at_sender=True)
+    # elif is_cn:
+    #     await bot.send(ev, f"https://www.bilibili.com/read/cv19044402\n{pcn}", at_sender=True)
+    #     msg.append(f'※不定期搬运自nga\n※制作by樱花铁道之夜\nR{rank_cn} rank表：\n{pcn}')
+    #     await bot.send(ev, '\n'.join(msg), at_sender=True)
+    #     await util.silence(ev, 60)
 
 
 @sv.on_fullmatch('jjc', 'JJC', 'JJC作业', 'JJC作业网', 'JJC数据库', 'jjc作业', 'jjc作业网', 'jjc数据库')
