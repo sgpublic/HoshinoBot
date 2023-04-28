@@ -1,5 +1,5 @@
 # HoshinoBot
-[![License](https://img.shields.io/github/license/Ice-Cirno/HoshinoBot)](LICENSE)
+[![License](https://img.shields.io/github/license/Ice9Coffee/HoshinoBot)](LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.8+-blue)
 ![Nonebot Version](https://img.shields.io/badge/nonebot-1.6.0%2B%2C%202.0.0---blue)
 
@@ -15,16 +15,18 @@ A QQ-bot for Princess Connect Re:Dive based on [Nonebot](https://github.com/none
 
 - 2019.09.20 HoshinoBot诞生
 - ... (待补充)
-- **2020年8月2日0点，qq机器人框架相继停止维护。** **感谢 酷Q项目 和 CQHTTP插件 的开发者们！感谢他们让Hoshino得以诞生！** **Hoshino不再对酷Q进行支持**
+- 2020年8月2日0点，CoolQ框架停止维护。HoshinoBot改用gocqhttp作为无头QQ客户端。
 
 </details>
 
 
 ## 简介
 
-**HoshinoBot:** 基于 [nonebot](https://docs.nonebot.dev/) 框架，开源、无公害、非转基因的QQ机器人。
+**HoshinoBot:** 基于 [nonebot](https://docs.nonebot.dev/) 的开源Q群bot框架。
 
 
+## 更新公告
+- 2023.04: 支持Twitter API v2。使用前请按照[指引](https://github.com/Ice9Coffee/HoshinoBot/pull/271#issuecomment-1505584958)升级框架。由于Twitter API政策仍在频繁调整，不保证未来的可用性。感谢贡献者[@othinus001](https://github.com/othinus001)！
 
 ## 功能介绍
 
@@ -140,7 +142,7 @@ QQ群[![试用/赞助群](https://img.shields.io/badge/试用/赞助-Hoshinoの�
 3. 输入以下命令克隆本仓库并安装依赖
 
     ```powershell
-    git clone https://github.com/Ice-Cirno/HoshinoBot.git
+    git clone https://github.com/Ice9Coffee/HoshinoBot.git
     cd HoshinoBot
     py -3.8 -m pip install -r requirements.txt
     ```
@@ -219,7 +221,7 @@ QQ群[![试用/赞助群](https://img.shields.io/badge/试用/赞助-Hoshinoの�
 
 2. 克隆本仓库并安装依赖包
     ```bash
-    git clone https://github.com/Ice-Cirno/HoshinoBot.git
+    git clone https://github.com/Ice9Coffee/HoshinoBot.git
     cd HoshinoBot
     python3.8 -m pip install -r requirements.txt
     ```

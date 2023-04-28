@@ -112,8 +112,6 @@ def get_true_id(quick_key: str, user_id: int) -> str:
 
 def __get_auth_key():
     return config.priconne.arena.AUTH_KEY
-def __get_cookie():
-    return config.priconne.arena.COOKIE
 
 
 async def do_query(id_list, user_id, region=1):
@@ -121,7 +119,6 @@ async def do_query(id_list, user_id, region=1):
     header = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
         "authorization": __get_auth_key(),
-        "cookir": __get_cookie(),
     }
     payload = {
         "_sign": "a",
