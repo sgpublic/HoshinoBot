@@ -133,3 +133,4 @@ venv.bak/
 .mypy_cache/
 
 git.date
+.idea/
