@@ -3,7 +3,7 @@ import random
 import subprocess
 
 import hoshino
-from hoshino import Service, aiorequests, priv, sucmd
+from hoshino import Service, priv, sucmd
 from hoshino.config import SUPERUSERS
 from hoshino.typing import CommandSession
 
@@ -25,12 +25,7 @@ async def report_to_su(sess, msg_with_sess, msg_wo_sess):
 
 async def pull_chara(sess: CommandSession = None):
     try:
-        subprocess.check_output(['git', 'pull'])
-        output = subprocess.check_output(['git', 'submodule', 'update', '--recursive', '--remote'])
-        if output != "":
-            subprocess.call(["git", "add", "."])
-            subprocess.call(["git", "commit", "-m", "update LandosolRoster"])
-            subprocess.call(["git", "push"])
+        subprocess.call(['git', 'submodule', 'update', '--recursive', '--remote'])
 
         result = chara.roster.update()
 
