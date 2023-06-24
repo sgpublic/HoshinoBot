@@ -12,7 +12,7 @@ from hoshino import Service, util
 from hoshino.modules.priconne import chara
 from hoshino.typing import CQEvent, MessageSegment as Seg
 
-from .. import _pcr_data
+from hoshino.modules.priconne.LandosolRoster import _pcr_data
 from . import GameMaster
 
 

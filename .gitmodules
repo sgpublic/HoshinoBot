@@ -1,3 +1,7 @@
 [submodule "hoshino/modules/priconne/LandosolRoster"]
 	path = hoshino/modules/priconne/LandosolRoster
 	url = https://github.com/Ice9Coffee/LandosolRoster
+[submodule "hoshino/modules/pcrjjc2"]
+	path = hoshino/modules/pcrjjc2
+	url = https://github.com/cc004/pcrjjc2
+	branch = notice-all

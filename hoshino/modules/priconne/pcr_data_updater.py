@@ -25,7 +25,8 @@ async def report_to_su(sess, msg_with_sess, msg_wo_sess):
 
 async def pull_chara(sess: CommandSession = None):
     try:
-        subprocess.call(['git', 'submodule', 'update', '--recursive', '--remote'])
+        subprocess.call(['git', 'submodule', 'update', '--recursive', '--remote',
+                         './hoshino/modules/priconne/LandosolRoster'])
 
         result = chara.roster.update()
 

@@ -9,7 +9,8 @@ import os
 import random
 
 from hoshino import Service, util
-from hoshino.modules.priconne import _pcr_data, chara
+from hoshino.modules.priconne import chara
+from hoshino.modules.priconne.LandosolRoster import _pcr_data
 from hoshino.typing import CQEvent
 from hoshino.typing import MessageSegment as Seg
 
