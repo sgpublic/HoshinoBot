@@ -12,37 +12,17 @@ TOP_MANUAL = '''
 ==== 查看详细说明 ====
 [帮助pcr查询]
 [帮助pcr娱乐][帮助pcr订阅]
-[帮助kancolle]
-[帮助umamusume]
 [帮助通用]
 
 ====== 常用指令 ======
-[启用会战] 选择会战版本
 [怎么拆日和] 竞技场查询
 [pcr速查] 常用网址
 [星乃来发十连] 转蛋模拟
-[官漫286] 官方四格(日文)
-[猜头像][猜角色] 小游戏
-[.rd] roll点
 
 [切噜一下+待加密文本]
 ▲切噜语转换
 [来杯咖啡+反馈内容]
 ▲联系维护组
-
-====== 被动技能 ======
-pcr推特转发(日)
-pcr台B服官网公告推送
-pcr四格漫画(日)更新推送
-pcr竞技场背刺时间提醒*
-赛马娘推特转发*
-URA9因子嗅探者*
-萌系画师推特转发*
-撤回终结者*
-入群欢迎* & 退群通知
-番剧字幕组更新推送*°
-*: 默认关闭
-°: 不支持自定义
 
 ====== 模块开关 ======
 ※限群管理/群主控制※
@@ -76,7 +56,6 @@ def gen_bundle_manual(bundle_name, service_list, gid):
     return '\n'.join(manual)
 
 
-@sv.on_prefix('help', '帮助')
 @sv.on_suffix('help', '帮助')
 async def send_help(bot, ev: CQEvent):
     gid = ev.group_id
