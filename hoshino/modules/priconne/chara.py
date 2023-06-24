@@ -8,9 +8,8 @@ from PIL import Image
 
 import hoshino
 from hoshino import R, log, sucmd, util, aiorequests
+from hoshino.modules.priconne.LandosolRoster import _pcr_data
 from hoshino.typing import CommandSession
-
-from . import _pcr_data
 
 logger = log.new_logger('chara', hoshino.config.DEBUG)
 UNKNOWN = 1000

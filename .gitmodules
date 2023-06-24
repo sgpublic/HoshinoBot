@@ -1,0 +1,3 @@
+[submodule "hoshino/modules/priconne/LandosolRoster"]
+	path = hoshino/modules/priconne/LandosolRoster
+	url = https://github.com/Ice9Coffee/LandosolRoster

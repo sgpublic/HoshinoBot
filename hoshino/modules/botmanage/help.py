@@ -10,9 +10,9 @@ TOP_MANUAL = '''
 发送[]内的关键词触发
 
 ==== 查看详细说明 ====
-[帮助pcr会战][帮助pcr查询]
+[帮助pcr查询]
 [帮助pcr娱乐][帮助pcr订阅]
-[帮助artist][帮助kancolle]
+[帮助kancolle]
 [帮助umamusume]
 [帮助通用]
 

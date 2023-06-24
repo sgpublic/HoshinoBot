@@ -1,5 +1,6 @@
 import os
 import random
+import subprocess
 
 import hoshino
 from hoshino import Service, aiorequests, priv, sucmd
@@ -24,13 +25,13 @@ async def report_to_su(sess, msg_with_sess, msg_wo_sess):
 
 async def pull_chara(sess: CommandSession = None):
     try:
-        rsp = await aiorequests.get('https://raw.githubusercontent.com/Ice9Coffee/LandosolRoster/master/_pcr_data.py', timeout=300)
-        rsp.raise_for_status()
-        rsp = await rsp.text
+        subprocess.check_output(['git', 'pull'])
+        output = subprocess.check_output(['git', 'submodule', 'update', '--recursive', '--remote'])
+        if output != "":
+            subprocess.call(["git", "add", "."])
+            subprocess.call(["git", "commit", "-m", "update LandosolRoster"])
+            subprocess.call(["git", "push"])
 
-        filename = os.path.join(os.path.dirname(__file__), '_pcr_data.py')
-        with open(filename, 'w', encoding='utf8') as f:
-            f.write(rsp)
         result = chara.roster.update()
 
     except Exception as e:
