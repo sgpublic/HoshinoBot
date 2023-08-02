@@ -5,3 +5,12 @@
 	path = hoshino/modules/pcrjjc2
 	url = https://github.com/cc004/pcrjjc2
 	branch = notice-all
+[submodule "hoshino/modules/kanna_connection_redive"]
+	path = hoshino/modules/kanna_connection_redive
+	url = https://github.com/SonderXiaoming/kanna_connection_redive
+[submodule "hoshino/modules/multicq_send"]
+	path = hoshino/modules/multicq_send
+	url = https://github.com/SonderXiaoming/multicq_send
+[submodule "hoshino/modules/convert2img"]
+	path = hoshino/modules/convert2img
+	url = https://github.com/SonderXiaoming/convert2img
