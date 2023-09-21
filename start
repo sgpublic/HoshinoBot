@@ -1,19 +1,24 @@
 #!/bin/bash -e
 
-cd `dirname $0`
+if [ ! -d ".venv" ]; then
+	python3 -m venv ./.venv
+fi
 
 source ./.venv/bin/activate
 
-if [ ! -e "./git.date" ]; then
-	echo 0 > ./git.date
+mkdir -p ~/.cache/hoshino
+if [ ! -e "~/.cache/hoshino/git.date" ]; then
+	echo 0 > ~/.cache/hoshino/git.date
 fi
 
 now=$(date +%Y%m%d)
 
+pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+
 if [ ! "$(cat ./git.date)" == "$now" ]; then
 	timeout 1m git pull
 	pip install -r requirements.txt
-	echo "$now" > ./git.date
+	echo "$now" > ~/.cache/hoshino/git.date
 fi
 
 python3 run.py
