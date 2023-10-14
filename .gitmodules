@@ -14,3 +14,6 @@
 [submodule "hoshino/modules/convert2img"]
 	path = hoshino/modules/convert2img
 	url = https://github.com/SonderXiaoming/convert2img
+[submodule "hoshino/modules/priconne/arena"]
+	path = hoshino/modules/priconne/arena
+	url = https://github.com/watermellye/arena
