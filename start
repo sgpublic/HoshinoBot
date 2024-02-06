@@ -19,6 +19,7 @@ pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
 if [ ! "$(cat ~/.cache/hoshino/git.date)" == "$now" ]; then
 	timeout 1m git pull
+	pip install nonebot --break-system-package
 	pip install -r requirements.txt --break-system-packages
 	echo "$now" > ~/.cache/hoshino/git.date
 fi
