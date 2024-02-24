@@ -19,3 +19,7 @@ pygtrie~=2.3.3
 tinydb~=4.1.1
 peony-twitter[all]~=2.1.2
 cloudscraper~=1.2.60
+
+msgpack~=1.0.7
+Crypto~=1.4.1
+opencv-python~=4.9.0.80
