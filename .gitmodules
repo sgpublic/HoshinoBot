@@ -1,10 +1,6 @@
 [submodule "hoshino/modules/priconne/LandosolRoster"]
 	path = hoshino/modules/priconne/LandosolRoster
 	url = https://github.com/Ice9Coffee/LandosolRoster
-[submodule "hoshino/modules/pcrjjc2"]
-	path = hoshino/modules/pcrjjc2
-	url = https://github.com/cc004/pcrjjc2
-	branch = notice-all
 [submodule "hoshino/modules/kanna_connection_redive"]
 	path = hoshino/modules/kanna_connection_redive
 	url = https://github.com/SonderXiaoming/kanna_connection_redive
@@ -17,3 +13,6 @@
 [submodule "hoshino/modules/priconne/arena"]
 	path = hoshino/modules/priconne/arena
 	url = https://github.com/watermellye/arena
+[submodule "hoshino/modules/pcrjjc2"]
+	path = hoshino/modules/pcrjjc2
+	url = https://github.com/SonderXiaoming/pcrjjc_huannai2.git
