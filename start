@@ -22,6 +22,7 @@ if [ ! "$(cat ~/.cache/hoshino/git.date)" == "$now" ]; then
 	pip install nonebot
 	pip install -r requirements.txt
 	pip install hoshino/modules/autopcr/requirements.txt
+	python3 hoshino/modules/autopcr/download_web.py
 	echo "$now" > ~/.cache/hoshino/git.date
 fi
 
