@@ -21,7 +21,7 @@ if [ ! "$(cat ~/.cache/hoshino/git.date)" == "$now" ]; then
 	timeout 1m git pull
 	pip install nonebot
 	pip install -r requirements.txt
-	pip install hoshino/modules/autopcr/requirements.txt
+	find hoshino/modules -type f -name "requirements.txt" -print0 | xargs -0 -I {} sh -c 'if [ -f "{}" ]; then pip install -r "{}"; fi'
 	python3 hoshino/modules/autopcr/download_web.py
 	echo "$now" > ~/.cache/hoshino/git.date
 fi
