@@ -1,4 +1,7 @@
 import os
+
+from aiocqhttp import MessageSegment
+
 from hoshino.R import ResObj, ResImg, get
 from . import sv
 from hoshino.priv import *
@@ -107,7 +110,9 @@ async def rank_sheet(bot, ev):
     if not is_jp and not is_tw and not is_cn:
         await bot.send(ev, "\n请问您要查询哪个服务器的rank表？\n*日rank表\n*台rank表\n*陆rank表", at_sender=True)
         return
-    msg = ["\n"]
+    msg = [
+        MessageSegment.text("\n")
+    ]
     if is_jp:
         rank_config_path = cache_obj("jp.json").path
         with open(rank_config_path, "r", encoding="utf8") as fp:
@@ -115,7 +120,7 @@ async def rank_sheet(bot, ev):
         rank_imgs = []
         for img_name in rank_config["files"]:
             rank_imgs.append(cache_img(f"jp_{img_name}").cqcode)
-        msg.append(rank_config["notice"])
+        msg.append(MessageSegment.text(rank_config["notice"]))
         pos = match.group(3)
         if not pos or "前" in pos:
             msg.append(rank_imgs[0])
@@ -123,7 +128,7 @@ async def rank_sheet(bot, ev):
             msg.append(rank_imgs[1])
         if not pos or "后" in pos:
             msg.append(rank_imgs[2])
-        await bot.send(ev, "".join(msg), at_sender=True)
+        await bot.send(ev, msg, at_sender=True)
     elif is_tw:
         rank_config_path = cache_obj("tw.json").path
         with open(rank_config_path, "r", encoding="utf8") as fp:
@@ -131,7 +136,7 @@ async def rank_sheet(bot, ev):
         rank_imgs = []
         for img_name in rank_config["files"]:
             rank_imgs.append(cache_img(f"tw_{img_name}").cqcode)
-        msg.append(rank_config["notice"])
+        msg.append(MessageSegment.text(rank_config["notice"]))
         for rank_img in rank_imgs:
             msg.append(rank_img)
         await bot.send(ev, "".join(msg), at_sender=True)
@@ -142,16 +147,15 @@ async def rank_sheet(bot, ev):
         rank_imgs = []
         for img_name in rank_config["files"]:
             rank_imgs.append(cache_img(f"cn_{img_name}").cqcode)
-        msg.append(rank_config["notice"])
+        msg.append(MessageSegment.text(rank_config["notice"]))
         for rank_img in rank_imgs:
             msg.append(rank_img)
-        await bot.send(ev, "".join(msg), at_sender=True)
+        await bot.send(ev, msg, at_sender=True)
 
 
 @sv.on_fullmatch("查看当前rank更新源")
 async def show_current_rank_source(bot, ev):
-    if config == None:
-        await load_config()
+    await load_config()
     if not check_priv(ev, SUPERUSER):
         await bot.send(ev, "仅有SUPERUSER可以使用本功能")
     msg = []
@@ -188,8 +192,7 @@ async def show_current_rank_source(bot, ev):
 
 @sv.on_fullmatch("查看全部rank更新源")
 async def show_all_rank_source(bot, ev):
-    if config == None:
-        await load_config()
+    await load_config()
     if not check_priv(ev, SUPERUSER):
         await bot.send(ev, "仅有SUPERUSER可以使用本功能")
     resp = await aiorequests.get(server_addr + "route.json")
@@ -226,6 +229,7 @@ async def show_all_rank_source(bot, ev):
 
 @sv.on_fullmatch("更新rank表缓存")
 async def update_rank_cache(bot, ev):
+    await load_config()
     if not check_priv(ev, SUPERUSER):
         await bot.send(ev, "仅有SUPERUSER可以使用本功能")
     await update_cache()
@@ -234,6 +238,5 @@ async def update_rank_cache(bot, ev):
 
 @scheduler.scheduled_job('cron', hour='17', minute='06')
 async def schedule_update_rank_cache():
-    if config == None:
-        await load_config()
+    await load_config()
     await update_cache()
