@@ -70,7 +70,7 @@ HoshinoBot 的功能繁多，各群可根据自己的需要进行开关控制，
 在你喜欢的位置创建一个目录并进入，例如 `~/nonebot-hoshino`，随后将项目克隆到当前目录的 `app` 目录下：
 
 ```shell
-git clone https://github.com/sgpublic/HoshinoBot --depth=1 ./app
+git clone https://github.com/sgpublic/HoshinoBot --recursive --depth=1 ./app
 ```
 
 然后将 `docker-compose.yaml` 文件写入当前目录，`docker-compose.yaml` 示例：
