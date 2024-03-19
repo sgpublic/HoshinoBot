@@ -38,3 +38,22 @@ MODULES_ON = {
     'priconne',
     'pcrjjc2',
 }
+
+PCR_RANK = {
+    'upstream': 'https://raw.githubusercontent.com/pcrbot/pcr-rank_data/master/rank/',
+    'resize_pic': False,
+    'source': {
+        'cn': {
+            'channel': 'stable',
+            'route': 'cn/hw',
+        },
+        'tw': {
+            'channel': 'stable',
+            'route': 'tw/wy',
+        },
+        'jp': {
+            'channel': 'stable',
+            'route': 'jp/sl',
+        },
+    },
+}
