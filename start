@@ -17,7 +17,7 @@ now=$(date +%Y%m%d)
 
 pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
-if [ ! "$(cat ~/.cache/hoshino/git.date)" == "$now" ]; then
+if [ ! "$(cat ~/.cache/hoshino/git.date | tr -d '\n')" == "$now" ]; then
 	timeout 1m git pull
 	pip install nonebot wheel
 	pip install -r requirements.txt
