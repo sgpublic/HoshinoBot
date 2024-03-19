@@ -44,14 +44,17 @@ PCR_RANK = {
     'resize_pic': False,
     'source': {
         'cn': {
+            'name': '花舞',
             'channel': 'stable',
             'route': 'cn/hw',
         },
         'tw': {
+            'name': '无羽',
             'channel': 'stable',
             'route': 'tw/wy',
         },
         'jp': {
+            'name': '森佬',
             'channel': 'stable',
             'route': 'jp/sl',
         },
