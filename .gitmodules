@@ -1,21 +1,21 @@
 [submodule "hoshino/modules/priconne/LandosolRoster"]
 	path = hoshino/modules/priconne/LandosolRoster
-	url = https://github.com/Ice9Coffee/LandosolRoster
+	url = git@github.com:Ice9Coffee/LandosolRoster
 [submodule "hoshino/modules/kanna_connection_redive"]
 	path = hoshino/modules/kanna_connection_redive
-	url = https://github.com/SonderXiaoming/kanna_connection_redive
+	url = git@github.com:SonderXiaoming/kanna_connection_redive
 [submodule "hoshino/modules/multicq_send"]
 	path = hoshino/modules/multicq_send
-	url = https://github.com/SonderXiaoming/multicq_send
+	url = git@github.com:SonderXiaoming/multicq_send
 [submodule "hoshino/modules/convert2img"]
 	path = hoshino/modules/convert2img
-	url = https://github.com/SonderXiaoming/convert2img
+	url = git@github.com:SonderXiaoming/convert2img
 [submodule "hoshino/modules/priconne/arena"]
 	path = hoshino/modules/priconne/arena
-	url = https://github.com/watermellye/arena
+	url = git@github.com:sgpublic/pcr_arena.git
 [submodule "hoshino/modules/pcrjjc2"]
 	path = hoshino/modules/pcrjjc2
-	url = https://github.com/SonderXiaoming/pcrjjc_huannai2.git
+	url = git@github.com:sgpublic/pcrjjc_huannai2.git
 [submodule "hoshino/modules/autopcr"]
 	path = hoshino/modules/autopcr
 	url = git@github.com:cc004/autopcr.git
