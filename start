@@ -20,8 +20,8 @@ pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 if [ ! "$(cat ~/.cache/hoshino/git.date | tr -d '\n')" == "$now" ]; then
 	timeout 1m git pull
 	pip install nonebot wheel
-	find hoshino/modules -type f -name "requirements.txt" -print0 | xargs -0 -I {} sh -c 'if [ -f "{}" ]; then pip install -r "{}"; fi'
 	pip install -r requirements.txt
+	find hoshino/modules -type f -name "requirements.txt" -print0 | xargs -0 -I {} sh -c 'if [ -f "{}" ]; then pip install -r "{}"; fi'
 	echo "$now" > ~/.cache/hoshino/git.date
 fi
 
