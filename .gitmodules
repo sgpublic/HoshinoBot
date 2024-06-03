@@ -20,6 +20,6 @@
 	path = hoshino/modules/autopcr
 	url = git@github.com:cc004/autopcr.git
 [submodule "hoshino/modules/priconne/clairvoyance"]
-	path = hoshino/modules/autopcr
+	path = hoshino/modules/priconne/clairvoyance
 	url = git@github.com:sgpublic/hoshino-clairvoyance.git
 	branch = resource
