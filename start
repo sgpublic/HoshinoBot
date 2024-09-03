@@ -25,7 +25,4 @@ if [ ! "$(cat ~/.cache/hoshino/git.date | tr -d '\n')" == "$now" ]; then
 	echo "$now" > ~/.cache/hoshino/git.date
 fi
 
-export DOTNET_ROOT=/usr/lib/dotnet/6
-
-python3 hoshino/modules/autopcr/_download_web.py
 python3 run.py

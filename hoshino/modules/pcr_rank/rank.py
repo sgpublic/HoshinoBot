@@ -44,6 +44,9 @@ def save_config():
 async def download_rank_pic(url):
     sv.logger.info(f"正在下载{url}")
     resp = await aiorequests.head(url)
+    if not resp.ok:
+        sv.logger.info(f"下载失败（status_code：{resp.status_code}）")
+        return None
     content_length = int(resp.headers["Content-Length"])
     sv.logger.info(f"块大小{str(content_length)}")
     # 分割200kb下载
@@ -78,6 +81,8 @@ async def update_rank_pic_cache(force_update: bool):
                     continue
             rank_img_url = f"{server_addr}{config['source'][conf_name]['channel']}/{config['source'][conf_name]['route']}/{img_name}"
             img_content = await download_rank_pic(rank_img_url)
+            if img_content is None:
+                continue
             with open(cache_img(f"{conf_name}_{img_name}").path, 'ab') as fp:
                 fp.seek(0)
                 fp.truncate()
@@ -233,6 +238,14 @@ async def update_rank_cache(bot, ev):
     if not check_priv(ev, SUPERUSER):
         await bot.send(ev, "仅有SUPERUSER可以使用本功能")
     await update_cache()
+    await bot.send(ev, "更新成功")
+
+@sv.on_fullmatch("强制更新rank表缓存")
+async def update_rank_cache(bot, ev):
+    await load_config()
+    if not check_priv(ev, SUPERUSER):
+        await bot.send(ev, "仅有SUPERUSER可以使用本功能")
+    await update_cache(True)
     await bot.send(ev, "更新成功")
 
 
